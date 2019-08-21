@@ -3,9 +3,7 @@
  */
 package com.krishnadasari.springboot.restapi.app1.restapispringbootapp1.usermgmt.controller;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -57,7 +55,7 @@ public class UserController
 	public User updateUser(@PathVariable("userId") Integer userId,@RequestBody User updatedUser)
 	{
 		User existingUser =  getUserById(userId);
-		
+		users.remove(existingUser) ;
 		existingUser.setFirstName(updatedUser.getFirstName());
 		existingUser.setLastName(updatedUser.getLastName());
 		existingUser.setEmail(updatedUser.getEmail());
@@ -69,9 +67,9 @@ public class UserController
 	@DeleteMapping(path = "/{userId}")
 	public String deleteUser(@PathVariable("userId") Integer userId)
 	{
-		User existingUser =  getUserById(userId);
-		users.remove(existingUser);
-		return "UserDeleted Successfully ";
+		User existingUser =  getUserById(userId);	
+		System.out.println(existingUser);
+		return users.remove(existingUser) ? "UserDeleted Successfully " :" unable to delete user";
 	}
 	
 	private User getUserById(Integer userId)
